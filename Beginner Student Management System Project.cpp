@@ -151,7 +151,6 @@ void Top_Student(const vector<Student> &student, const size_t S) {
 }
 
 int main() {
-    int Hello = 0;
     int Choice = 0;
     vector<Student> Students;
     cout << "Welcome To Student Management System\n";
