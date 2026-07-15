@@ -5,7 +5,7 @@ using namespace std;
 
 struct Student {
     string ID, Name;
-    int Age = 0, NGrades;
+    int Age , NSubjects;
     vector<double> Grades;
     double Total = 0 , Avg = 0;
 
@@ -66,33 +66,33 @@ int Read_ID(const vector<Student> &Stud, const size_t S) {
     }
 }
 
-void Grade_Total(Student &Stud, const int NGrades) {
+void Grade_Total(Student &Stud, const int NSubjects) {
     double Sum = 0;
-    for (int i = 0; i < NGrades; i++)
+    for (int i = 0; i < NSubjects; i++)
         Sum += Stud.Grades[i];
     Stud.Total = Sum;
 }
 
-void Grade_Avg(Student &Stud, const int NGrades) {
-    Stud.Avg = Stud.Total / NGrades;
+void Grade_Avg(Student &Stud, const int NSubjects) {
+    Stud.Avg = Stud.Total / NSubjects;
 }
 
 void Search_Student(const Student &Stud) {
     cout << "Name: " << Stud.Name << endl;
     cout << "Age: " << Stud.Age << endl;
 
-    const int NGrades = Stud.NGrades;
+    const int NSubjects = Stud.NSubjects;
     cout << "Grades: ";
-    for (int i = 0; i < NGrades; i++)
+    for (int i = 0; i < NSubjects; i++)
         cout << Stud.Grades[i] << ' ';
 
     cout << "\nTotal Of Grades: " << Stud.Total << endl;
     cout << "Average Of Grades: " << Stud.Avg << endl;
 }
 
-void Read_Grades(Student &Stud, const int NGrades) {
+void Read_Grades(Student &Stud, const int NSubjects) {
     cout << "Enter Student Grades\n";
-    for (int c = 0; c < NGrades; c++) {
+    for (int c = 0; c < NSubjects; c++) {
         cin >> Stud.Grades[c];
         Student::Valid_Grades(Stud.Grades[c]);
     }
@@ -108,15 +108,15 @@ void Add_Student(Student &Stud, const size_t S) {
     Student::Valid_Age(Stud.Age);
 
     cout << "Enter Number Of Subjects Of The Student\n";
-    cin >> Stud.NGrades;
-    Student::Valid_NGrades(Stud.NGrades);
-    Stud.Grades.resize(Stud.NGrades);
+    cin >> Stud.NSubjects;
+    Student::Valid_NGrades(Stud.NSubjects);
+    Stud.Grades.resize(Stud.NSubjects);
 
-    Read_Grades(Stud , Stud.NGrades);
+    Read_Grades(Stud , Stud.NSubjects);
 
-    if (Stud.NGrades) {
-         Grade_Total(Stud, Stud.NGrades);
-        Grade_Avg(Stud, Stud.NGrades);
+    if (Stud.NSubjects) {
+         Grade_Total(Stud, Stud.NSubjects);
+        Grade_Avg(Stud, Stud.NSubjects);
     }
 
     Stud.ID = "#" + Stud.Name.substr(0,min<size_t>(2,Stud.Name.length())) + to_string(Stud.Age) + "_" + to_string(S);
@@ -124,7 +124,7 @@ void Add_Student(Student &Stud, const size_t S) {
 }
 
 void Edit_Grades(Student &Stud) {
-    const int NGrades = Stud.NGrades;
+    const int NGrades = Stud.NSubjects;
     Read_Grades(Stud , NGrades);
 
     Grade_Total(Stud, NGrades);
